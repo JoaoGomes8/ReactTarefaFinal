@@ -1,0 +1,32 @@
+[
+  {
+    "email": "student@gusronk.com",
+    "password": "student@gusronk.com",
+    "type": "student"
+  },
+  {
+    "email": "utilizador@gusronk.com",
+    "password": "utilizador@gusronk.com",
+    "type": "user"
+  },
+  {
+    "email": "utilizador@gusronk.com",
+    "password": "123",
+    "type": "user"
+  },
+  {
+    "email": "utilizador@gusronk.com",
+    "password": "utilizador@gusronk.com",
+    "type": "user"
+  },
+  {
+    "email": "utilizador@gusronk.com",
+    "password": "gusronk.com",
+    "type": "user"
+  },
+  {
+    "email": "utilizador1@gusronk.com",
+    "password": "utilizador",
+    "type": "user"
+  }
+]
