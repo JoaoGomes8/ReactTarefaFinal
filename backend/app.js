@@ -32,6 +32,12 @@ app.get("/users", async (req, res) => {
   res.status(200).json({ users });
 });
 
+app.get("/menu-items", async (req, res) => {
+  const fileContent = await fs.readFile("./data/menu-items.json");
+  const menuItems = JSON.parse(fileContent);
+  res.status(200).json({ menuItems });
+});
+
 app.put("/user-places", async (req, res) => {
   const places = req.body.places;
   await fs.writeFile("./data/user-places.json", JSON.stringify(places));
@@ -75,6 +81,17 @@ app.post("/login", async (req, res) => {
   };
 
   res.json(AuthUser);
+});
+
+app.post("/menu-items", async (req, res) => {
+  const fileContent = await fs.readFile("./data/menu-items.json");
+  const menuItems = JSON.parse(fileContent);
+
+  const newMenuItem = req.body;
+  menuItems.push(newMenuItem);
+
+  await fs.writeFile("./data/menu-items.json", JSON.stringify(menuItems, null, 2));
+  res.status(200).json({ message: "Menu item inserted." });
 });
 
 // 404
