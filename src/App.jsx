@@ -6,14 +6,14 @@ import Login from './pages/Login'
 import Gestor from './pages/Gestor'
 import Consumidor from './pages/Consumidor'
 import Cozinha from './pages/Cozinha'
-import RootLayout from './components/RootLayout'
+import LayoutMaster from './components/LayoutMaster'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <LayoutMaster />,
     children: [
       { index: true, element: <HomePage /> },
       { path: "signup", element: <Signup /> },
