@@ -15,3 +15,38 @@ export async function createMenuItem(menuItemData) {
 
   return data;
 }
+
+export async function getMenuItems() {
+  const response = await fetch("http://localhost:3000/menu-items", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Erro ao carregar menu.");
+  }
+
+  return data.menuItems;
+}
+
+export async function createOrder(orderData) {
+  const response = await fetch("http://localhost:3000/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(orderData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Erro ao criar encomenda.");
+  }
+
+  return data;
+}

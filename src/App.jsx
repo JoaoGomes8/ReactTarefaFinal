@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Gestor from './pages/Gestor'
+import Consumidor from './pages/Consumidor'
 import RootLayout from './components/RootLayout'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "gestor",
         element: <ProtectedRoute element={<Gestor />} allowedRole="gestor" />,
+      },
+      {
+        path: "consumidor",
+        element: <ProtectedRoute element={<Consumidor />} allowedRole="consumidor" />,
       },
     ]
   }

@@ -1,3 +1,61 @@
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+header nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header a, header button {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+header a:hover {
+  background-color: #3498db;
+}
+
+header button:hover {
+  background-color: #e74c3c;
+}
+
+.user-info {
+  color: #ecf0f1;
+  font-size: 0.95rem;
+}
+
+.logout-btn {
+  background-color: #e74c3c;
+  padding: 0.5rem 1rem;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

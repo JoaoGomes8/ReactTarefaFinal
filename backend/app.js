@@ -38,6 +38,12 @@ app.get("/menu-items", async (req, res) => {
   res.status(200).json({ menuItems });
 });
 
+app.get("/orders", async (req, res) => {
+  const fileContent = await fs.readFile("./data/orders.json");
+  const orders = JSON.parse(fileContent);
+  res.status(200).json({ orders });
+});
+
 app.put("/user-places", async (req, res) => {
   const places = req.body.places;
   await fs.writeFile("./data/user-places.json", JSON.stringify(places));
@@ -92,6 +98,20 @@ app.post("/menu-items", async (req, res) => {
 
   await fs.writeFile("./data/menu-items.json", JSON.stringify(menuItems, null, 2));
   res.status(200).json({ message: "Menu item inserted." });
+});
+
+app.post("/orders", async (req, res) => {
+  const fileContent = await fs.readFile("./data/orders.json");
+  const orders = JSON.parse(fileContent);
+
+  const newOrder = {
+    id: Date.now(),
+    ...req.body,
+  };
+  orders.push(newOrder);
+
+  await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 2));
+  res.status(200).json({ message: "Order created successfully!" });
 });
 
 // 404

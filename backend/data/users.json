@@ -28,5 +28,20 @@
     "email": "utilizador1@gusronk.com",
     "password": "utilizador",
     "type": "user"
+  },
+  {
+    "email": "gestor@restaurant.com",
+    "password": "gestor123",
+    "type": "gestor"
+  },
+  {
+    "email": "consumidor@restaurant.com",
+    "password": "consumidor123",
+    "type": "consumidor"
+  },
+  {
+    "email": "cozinha@restaurant.com",
+    "password": "cozinha123",
+    "type": "cozinha"
   }
 ]

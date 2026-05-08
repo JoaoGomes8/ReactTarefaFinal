@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Sopa de Legumes",
+    "description": "Sopa tradicional de legumes frescos",
+    "category": "entrada",
+    "price": 5.50
+  },
+  {
+    "id": 2,
+    "name": "Camarão à Guilho",
+    "description": "Camarão ao alho e azeite",
+    "category": "entrada",
+    "price": 8.50
+  },
+  {
+    "id": 3,
+    "name": "Salada Mista",
+    "description": "Salada fresca com variedade de verduras",
+    "category": "entrada",
+    "price": 6.00
+  },
+  {
+    "id": 4,
+    "name": "Frango Grelhado",
+    "description": "Peito de frango temperado e grelhado",
+    "category": "prato_principal",
+    "price": 12.50
+  },
+  {
+    "id": 5,
+    "name": "Peixe à Dorado",
+    "description": "Peixe fresco ao forno com batata",
+    "category": "prato_principal",
+    "price": 15.00
+  },
+  {
+    "id": 6,
+    "name": "Bife à Portuguesa",
+    "description": "Bife suculento com molho especial",
+    "category": "prato_principal",
+    "price": 14.50
+  },
+  {
+    "id": 7,
+    "name": "Arroz de Marisco",
+    "description": "Arroz com variedade de frutos do mar",
+    "category": "prato_principal",
+    "price": 16.50
+  },
+  {
+    "id": 8,
+    "name": "Pudim de Leite",
+    "description": "Tradicional pudim caseiro",
+    "category": "sobremesa",
+    "price": 4.50
+  },
+  {
+    "id": 9,
+    "name": "Chocolate Derretido",
+    "description": "Bolo de chocolate quente com sorvete",
+    "category": "sobremesa",
+    "price": 5.50
+  },
+  {
+    "id": 10,
+    "name": "Fruta da Época",
+    "description": "Seleção de frutas frescas",
+    "category": "sobremesa",
+    "price": 4.00
+  }
+]
