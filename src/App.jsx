@@ -5,6 +5,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Gestor from './pages/Gestor'
 import Consumidor from './pages/Consumidor'
+import Cozinha from './pages/Cozinha'
 import RootLayout from './components/RootLayout'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "consumidor",
         element: <ProtectedRoute element={<Consumidor />} allowedRole="consumidor" />,
+      },
+      {
+        path: "cozinha",
+        element: <ProtectedRoute element={<Cozinha />} allowedRole="cozinha" />,
       },
     ]
   }

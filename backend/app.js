@@ -114,6 +114,25 @@ app.post("/orders", async (req, res) => {
   res.status(200).json({ message: "Order created successfully!" });
 });
 
+app.put("/orders/:id", async (req, res) => {
+  const fileContent = await fs.readFile("./data/orders.json");
+  const orders = JSON.parse(fileContent);
+
+  const orderId = Number(req.params.id);
+  const newStatus = req.body.status;
+
+  const orderIndex = orders.findIndex((order) => Number(order.id) === orderId);
+
+  if (orderIndex === -1) {
+    return res.status(404).json({ message: "Encomenda não encontrada." });
+  }
+
+  orders[orderIndex].status = newStatus;
+
+  await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 2));
+  res.status(200).json({ message: "Estado da encomenda atualizado." });
+});
+
 // 404
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {

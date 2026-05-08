@@ -50,3 +50,38 @@ export async function createOrder(orderData) {
 
   return data;
 }
+
+export async function getOrders() {
+  const response = await fetch("http://localhost:3000/orders", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Erro ao carregar encomendas.");
+  }
+
+  return data.orders;
+}
+
+export async function updateOrderStatus(orderId, status) {
+  const response = await fetch(`http://localhost:3000/orders/${orderId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Erro ao atualizar estado da encomenda.");
+  }
+
+  return data;
+}
