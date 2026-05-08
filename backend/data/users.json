@@ -43,5 +43,11 @@
     "email": "cozinha@restaurant.com",
     "password": "cozinha123",
     "type": "cozinha"
+  },
+  {
+    "name": "joao",
+    "email": "joao@joao",
+    "password": "cesae123",
+    "type": "cozinha"
   }
 ]

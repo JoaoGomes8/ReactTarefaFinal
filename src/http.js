@@ -51,7 +51,7 @@ export async function createOrder(orderData) {
   return data;
 }
 
-export async function getOrders() {
+export async function fetchOrders() {
   const response = await fetch("http://localhost:3000/orders", {
     method: "GET",
     headers: {
@@ -66,6 +66,10 @@ export async function getOrders() {
   }
 
   return data.orders;
+}
+
+export async function getOrders() {
+  return fetchOrders();
 }
 
 export async function updateOrderStatus(orderId, status) {

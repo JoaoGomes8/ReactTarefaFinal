@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getOrders, updateOrderStatus } from "../http";
+import { fetchOrders, updateOrderStatus } from "../http";
 import OrderCard from "../components/OrderCard";
 import "../styles/Cozinha.css";
 
@@ -12,7 +12,7 @@ export default function Cozinha() {
   useEffect(() => {
     async function loadOrders() {
       try {
-        const ordersData = await getOrders();
+        const ordersData = await fetchOrders();
         setOrders(ordersData);
       } catch (err) {
         setError(err.message || "Erro ao carregar encomendas.");
