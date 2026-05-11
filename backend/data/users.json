@@ -49,5 +49,35 @@
     "email": "joao@joao",
     "password": "cesae123",
     "type": "cozinha"
+  },
+  {
+    "name": "joao",
+    "email": "teste2@teste",
+    "password": "cesae123",
+    "type": "consumidor"
+  },
+  {
+    "name": "aaa",
+    "email": "teste2@teste",
+    "password": "cesae123",
+    "type": "gestor"
+  },
+  {
+    "name": "Manuel",
+    "email": "gestor@gestor",
+    "password": "cesae123",
+    "type": "gestor"
+  },
+  {
+    "name": "aaaa",
+    "email": "cozinha@cozinha",
+    "password": "cesae123",
+    "type": "cozinha"
+  },
+  {
+    "name": "aaaa",
+    "email": "consumidor@consumidor",
+    "password": "cesae123",
+    "type": "consumidor"
   }
 ]

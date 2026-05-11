@@ -3,70 +3,133 @@
     "id": 1,
     "name": "Sopa de Legumes",
     "description": "Sopa tradicional de legumes frescos",
-    "category": "entrada",
-    "price": 5.50
+    "category": "entradas",
+    "price": 5.5
   },
   {
     "id": 2,
     "name": "Camarão à Guilho",
     "description": "Camarão ao alho e azeite",
-    "category": "entrada",
-    "price": 8.50
+    "category": "entradas",
+    "price": 8.5
   },
   {
     "id": 3,
     "name": "Salada Mista",
     "description": "Salada fresca com variedade de verduras",
-    "category": "entrada",
-    "price": 6.00
+    "category": "entradas",
+    "price": 6
   },
   {
     "id": 4,
     "name": "Frango Grelhado",
     "description": "Peito de frango temperado e grelhado",
-    "category": "prato_principal",
-    "price": 12.50
+    "category": "prato principal",
+    "price": 12.5
   },
   {
     "id": 5,
     "name": "Peixe à Dorado",
     "description": "Peixe fresco ao forno com batata",
-    "category": "prato_principal",
-    "price": 15.00
+    "category": "prato principal",
+    "price": 15
   },
   {
     "id": 6,
     "name": "Bife à Portuguesa",
     "description": "Bife suculento com molho especial",
-    "category": "prato_principal",
-    "price": 14.50
+    "category": "prato principal",
+    "price": 14.5
   },
   {
     "id": 7,
     "name": "Arroz de Marisco",
     "description": "Arroz com variedade de frutos do mar",
-    "category": "prato_principal",
-    "price": 16.50
+    "category": "prato principal",
+    "price": 16.5
   },
   {
     "id": 8,
     "name": "Pudim de Leite",
     "description": "Tradicional pudim caseiro",
     "category": "sobremesa",
-    "price": 4.50
+    "price": 4.5
   },
   {
     "id": 9,
     "name": "Chocolate Derretido",
     "description": "Bolo de chocolate quente com sorvete",
     "category": "sobremesa",
-    "price": 5.50
+    "price": 5.5
   },
   {
     "id": 10,
     "name": "Fruta da Época",
     "description": "Seleção de frutas frescas",
     "category": "sobremesa",
-    "price": 4.00
+    "price": 4
+  },
+  {
+    "id": 11,
+    "name": "Bacalhau",
+    "description": "",
+    "category": "prato principal",
+    "price": 12.1
+  },
+  {
+    "id": 12,
+    "name": "teste",
+    "description": "",
+    "category": "entradas",
+    "price": 2
+  },
+  {
+    "id": 13,
+    "name": "teste2",
+    "description": "",
+    "category": "entradas",
+    "price": 5
+  },
+  {
+    "id": 14,
+    "name": "vvv",
+    "description": "",
+    "category": "entradas",
+    "price": 7
+  },
+  {
+    "name": "new",
+    "category": "sobremesas",
+    "price": 6
+  },
+  {
+    "name": "tarte",
+    "category": "sobremesas",
+    "price": 3
+  },
+  {
+    "name": "w",
+    "category": "entradas",
+    "price": 8
+  },
+  {
+    "name": "nn",
+    "category": "entradas",
+    "price": 9
+  },
+  {
+    "name": "mmm",
+    "category": "prato principal",
+    "price": 6
+  },
+  {
+    "name": "aaa",
+    "category": "entradas",
+    "price": 4
+  },
+  {
+    "name": "ppp",
+    "category": "entradas",
+    "price": 5
   }
 ]
