@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchOrders, updateOrderStatus } from "../http";
 import OrderCard from "../components/OrderCard";
-import "../styles/Cozinha.css";
 
 export default function Cozinha() {
   const [orders, setOrders] = useState([]);
@@ -43,11 +42,11 @@ export default function Cozinha() {
 
   function getStatusClass(status) {
     const statusClasses = {
-      "em confecção": "status-em-confeccao",
-      entregue: "status-entregue",
+      "em confecção": "bg-[rgba(77,139,201,0.18)] text-[#3f73b1]",
+      entregue: "bg-[rgba(47,125,88,0.18)] text-[var(--success)]",
     };
 
-    return statusClasses[status] || "status-pendente";
+    return statusClasses[status] || "bg-[rgba(217,164,65,0.18)] text-[#8e6400]";
   }
 
   let content;
@@ -75,9 +74,12 @@ export default function Cozinha() {
   }
 
   return (
-    <section className="cozinha-page">
-      <h1>Cozinha</h1>
-      <p>Gestão de encomendas e atualização de estado.</p>
+    <section className="grid gap-6">
+      <div className="grid gap-3 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-elevated)] p-6 shadow-[var(--shadow-soft)]">
+        <span className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--primary)]">Painel da cozinha</span>
+        <h1 className="font-serif text-4xl font-bold text-[var(--heading)]">Cozinha</h1>
+        <p className="text-[var(--text-soft)]">Consulte os pedidos em fila e marque cada encomenda em confeccao ou entregue.</p>
+      </div>
       {content}
     </section>
   );

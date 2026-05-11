@@ -1,12 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { getMenuItems, createOrder } from "../http";
-import "../styles/Consumidor.css";
 
 export default function Consumidor() {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState({
@@ -83,139 +80,76 @@ export default function Consumidor() {
   };
 
   if (loading) {
-    return <div className="consumidor-container"><p>Carregando menu...</p></div>;
+    return <div className="grid gap-6"><p className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3 shadow-[var(--shadow-soft)]">Carregando menu...</p></div>;
   }
 
   return (
-    <div className="consumidor-container">
-      <h1>Menu do Restaurante</h1>
-      <p className="welcome-text">Bem-vindo, {user.name}! Selecione seus itens para fazer uma encomenda.</p>
+    <div className="grid gap-6">
+      <section className="grid gap-4 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-elevated)] p-6 shadow-[var(--shadow-soft)] lg:grid-cols-[1.4fr_0.8fr]">
+        <div className="grid gap-3">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--primary)]">Menu digital</span>
+          <h1 className="font-serif text-4xl font-bold text-[var(--heading)] md:text-5xl">Monte a sua experiencia de refeicao.</h1>
+          <p className="text-[var(--text-soft)]">Bem-vindo, {user.name}! Escolha uma entrada, um prato principal e uma sobremesa.</p>
+        </div>
 
-      {error && <div className="error-message">{error}</div>}
+        <div className="grid content-center gap-3 rounded-[1.5rem] bg-[linear-gradient(135deg,rgba(217,164,65,0.22),rgba(159,79,47,0.16))] p-5">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--primary)]">Servico do dia</span>
+          <strong className="text-2xl text-[var(--heading)]">Selecao orientada com resumo e total automatico.</strong>
+        </div>
+      </section>
 
-      <form onSubmit={handleSubmitOrder} className="order-form">
-        {/* Entradas */}
-        <section className="menu-category">
-          <h2>Entradas</h2>
-          <div className="items-grid">
-            {getItemsByCategory("entrada").length > 0 ? (
-              getItemsByCategory("entrada").map((item) => (
-                <div key={item.id} className="menu-item">
-                  <input
-                    type="radio"
-                    name="entrada"
-                    id={`entrada-${item.id}`}
-                    value={item.id}
-                    checked={selectedItems.entrada?.id === item.id}
-                    onChange={() => handleItemSelect("entrada", item)}
-                  />
-                  <label htmlFor={`entrada-${item.id}`}>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <span className="price">€{item.price}</span>
-                  </label>
-                </div>
-              ))
-            ) : (
-              <p>Sem entradas disponíveis</p>
-            )}
-          </div>
-        </section>
+      {error && <div className="rounded-2xl border border-[rgba(185,75,66,0.2)] bg-[rgba(185,75,66,0.12)] px-4 py-3 text-[var(--danger)]">{error}</div>}
 
-        {/* Prato Principal */}
-        <section className="menu-category">
-          <h2>Prato Principal</h2>
-          <div className="items-grid">
-            {getItemsByCategory("prato_principal").length > 0 ? (
-              getItemsByCategory("prato_principal").map((item) => (
-                <div key={item.id} className="menu-item">
-                  <input
-                    type="radio"
-                    name="prato_principal"
-                    id={`prato-${item.id}`}
-                    value={item.id}
-                    checked={selectedItems.prato_principal?.id === item.id}
-                    onChange={() => handleItemSelect("prato_principal", item)}
-                  />
-                  <label htmlFor={`prato-${item.id}`}>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <span className="price">€{item.price}</span>
-                  </label>
-                </div>
-              ))
-            ) : (
-              <p>Sem pratos principais disponíveis</p>
-            )}
-          </div>
-        </section>
+      <form onSubmit={handleSubmitOrder} className="grid gap-6 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-elevated)] p-6 shadow-[var(--shadow-soft)]">
+        {[
+          ["entradas", "Entradas", "entrada"],
+          ["prato principal", "Prato Principal", "prato_principal"],
+          ["sobremesas", "Sobremesas", "sobremesa"],
+        ].map(([apiCategory, title, stateKey]) => (
+          <section key={apiCategory} className="grid gap-4">
+            <h2 className="border-b border-[var(--border)] pb-2 font-serif text-2xl font-bold text-[var(--heading)]">{title}</h2>
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {getItemsByCategory(apiCategory).length > 0 ? (
+                getItemsByCategory(apiCategory).map((item) => (
+                  <div key={item.id} className="rounded-[1.4rem] border border-[var(--border)] bg-[var(--surface-strong)] p-4 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]">
+                    <input
+                      type="radio"
+                      name={stateKey}
+                      id={`${stateKey}-${item.id}`}
+                      value={item.id}
+                      checked={selectedItems[stateKey]?.id === item.id}
+                      onChange={() => handleItemSelect(stateKey, item)}
+                      className="peer sr-only"
+                    />
+                    <label htmlFor={`${stateKey}-${item.id}`} className="grid cursor-pointer gap-2 rounded-[1.1rem] p-2 peer-checked:bg-[linear-gradient(180deg,rgba(217,164,65,0.12),rgba(159,79,47,0.08))]">
+                      <h3 className="font-serif text-xl font-bold text-[var(--heading)]">{item.name}</h3>
+                      <p className="text-sm text-[var(--text-soft)]">{item.description}</p>
+                      <span className="text-lg font-bold text-[var(--primary)]">€{item.price}</span>
+                    </label>
+                  </div>
+                ))
+              ) : (
+                <p className="text-[var(--text-soft)]">Sem opções disponíveis</p>
+              )}
+            </div>
+          </section>
+        ))}
 
-        {/* Sobremesas */}
-        <section className="menu-category">
-          <h2>Sobremesas</h2>
-          <div className="items-grid">
-            {getItemsByCategory("sobremesa").length > 0 ? (
-              getItemsByCategory("sobremesa").map((item) => (
-                <div key={item.id} className="menu-item">
-                  <input
-                    type="radio"
-                    name="sobremesa"
-                    id={`sobremesa-${item.id}`}
-                    value={item.id}
-                    checked={selectedItems.sobremesa?.id === item.id}
-                    onChange={() => handleItemSelect("sobremesa", item)}
-                  />
-                  <label htmlFor={`sobremesa-${item.id}`}>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <span className="price">€{item.price}</span>
-                  </label>
-                </div>
-              ))
-            ) : (
-              <p>Sem sobremesas disponíveis</p>
-            )}
-          </div>
-        </section>
-
-        {/* Resumo da Encomenda */}
-        <section className="order-summary">
-          <h2>Resumo da Encomenda</h2>
-          <div className="summary-items">
-            {selectedItems.entrada && (
-              <div className="summary-item">
-                <span>Entrada: {selectedItems.entrada.name}</span>
-                <span>€{selectedItems.entrada.price}</span>
-              </div>
-            )}
-            {selectedItems.prato_principal && (
-              <div className="summary-item">
-                <span>Prato: {selectedItems.prato_principal.name}</span>
-                <span>€{selectedItems.prato_principal.price}</span>
-              </div>
-            )}
-            {selectedItems.sobremesa && (
-              <div className="summary-item">
-                <span>Sobremesa: {selectedItems.sobremesa.name}</span>
-                <span>€{selectedItems.sobremesa.price}</span>
-              </div>
-            )}
+        <section className="grid gap-3 rounded-[1.5rem] border border-[var(--border)] bg-[var(--surface)] p-5">
+          <h2 className="font-serif text-2xl font-bold text-[var(--heading)]">Resumo da Encomenda</h2>
+          <div className="grid gap-2">
+            {selectedItems.entrada && <div className="flex items-center justify-between rounded-2xl bg-[var(--surface-strong)] px-4 py-3"><span>Entrada: {selectedItems.entrada.name}</span><span className="font-semibold text-[var(--primary)]">€{selectedItems.entrada.price}</span></div>}
+            {selectedItems.prato_principal && <div className="flex items-center justify-between rounded-2xl bg-[var(--surface-strong)] px-4 py-3"><span>Prato: {selectedItems.prato_principal.name}</span><span className="font-semibold text-[var(--primary)]">€{selectedItems.prato_principal.price}</span></div>}
+            {selectedItems.sobremesa && <div className="flex items-center justify-between rounded-2xl bg-[var(--surface-strong)] px-4 py-3"><span>Sobremesa: {selectedItems.sobremesa.name}</span><span className="font-semibold text-[var(--primary)]">€{selectedItems.sobremesa.price}</span></div>}
           </div>
           {selectedItems.entrada && selectedItems.prato_principal && selectedItems.sobremesa && (
-            <div className="total-price">
-              <strong>
-                Total: €
-                {(
-                  selectedItems.entrada.price +
-                  selectedItems.prato_principal.price +
-                  selectedItems.sobremesa.price
-                ).toFixed(2)}
-              </strong>
+            <div className="flex items-center justify-end border-t border-[var(--border)] pt-4 text-lg font-bold text-[var(--success)]">
+              Total: €{(selectedItems.entrada.price + selectedItems.prato_principal.price + selectedItems.sobremesa.price).toFixed(2)}
             </div>
           )}
         </section>
 
-        <button type="submit" disabled={submitting} className="submit-btn">
+        <button type="submit" disabled={submitting} className="rounded-full bg-gradient-to-r from-[var(--success)] to-[#205742] px-5 py-4 font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-[#7d807f]">
           {submitting ? "Enviando..." : "Confirmar Encomenda"}
         </button>
       </form>
