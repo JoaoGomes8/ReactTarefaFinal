@@ -13,9 +13,9 @@ export default function Gestor() {
 
     try {
       await createMenuItem({
-        nomePrato,
-        categoria,
-        preco: Number(preco),
+        name: nomePrato,
+        category: categoria,
+        price: Number(preco),
       });
 
       setMessage("Item de menu criado com sucesso.");

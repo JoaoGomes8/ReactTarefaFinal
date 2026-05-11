@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Gestor from './pages/Gestor'
 import Consumidor from './pages/Consumidor'
 import Cozinha from './pages/Cozinha'
+import NotFound from './pages/NotFound'
 import LayoutMaster from './components/LayoutMaster'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
         path: "cozinha",
         element: <ProtectedRoute element={<Cozinha />} allowedRole="cozinha" />,
       },
+      { path: "*", element: <NotFound /> },
     ]
   }
 ]);

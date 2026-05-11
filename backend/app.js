@@ -1,7 +1,17 @@
 import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import bodyParser from "body-parser";
 import express from "express";
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dataDir = path.join(__dirname, "data");
+
+function dataPath(fileName) {
+  return path.join(dataDir, fileName);
+}
 
 app.use(express.static("./images"));
 app.use(bodyParser.json());
@@ -15,57 +25,57 @@ app.use((req, res, next) => {
 });
 
 app.get("/places", async (req, res) => {
-  const fileContent = await fs.readFile("./data/places.json");
+  const fileContent = await fs.readFile(dataPath("places.json"));
   const placesData = JSON.parse(fileContent);
   res.status(200).json({ places: placesData });
 });
        
 app.get("/user-places", async (req, res) => {
-  const fileContent = await fs.readFile("./data/user-places.json");
+  const fileContent = await fs.readFile(dataPath("user-places.json"));
   const places = JSON.parse(fileContent);
   res.status(200).json({ places });
 });
 
 app.get("/users", async (req, res) => {
-  const fileContent = await fs.readFile("./data/users.json");
+  const fileContent = await fs.readFile(dataPath("users.json"));
   const users = JSON.parse(fileContent);
   res.status(200).json({ users });
 });
 
 app.get("/menu-items", async (req, res) => {
-  const fileContent = await fs.readFile("./data/menu-items.json");
+  const fileContent = await fs.readFile(dataPath("menu-items.json"));
   const menuItems = JSON.parse(fileContent);
   res.status(200).json({ menuItems });
 });
 
 app.get("/orders", async (req, res) => {
-  const fileContent = await fs.readFile("./data/orders.json");
+  const fileContent = await fs.readFile(dataPath("orders.json"));
   const orders = JSON.parse(fileContent);
   res.status(200).json({ orders });
 });
 
 app.put("/user-places", async (req, res) => {
   const places = req.body.places;
-  await fs.writeFile("./data/user-places.json", JSON.stringify(places));
+  await fs.writeFile(dataPath("user-places.json"), JSON.stringify(places));
   res.status(200).json({ message: "User places updated!" });
 });
 
 //rotas de users
 //rota de registo
 app.post("/signup", async (req, res) => {
-  const fileContent = await fs.readFile("./data/users.json");
+  const fileContent = await fs.readFile(dataPath("users.json"));
   const users = JSON.parse(fileContent);
 
   const newUser = req.body;
   users.push(newUser);
 
-  await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
+  await fs.writeFile(dataPath("users.json"), JSON.stringify(users, null, 2));
   res.status(200).json({ message: "User Inserted!" });
 });
 
 //rota de login (verifica se há user e se sim gera um token)
 app.post("/login", async (req, res) => {
-  const fileContent = await fs.readFile("./data/users.json");
+  const fileContent = await fs.readFile(dataPath("users.json"));
   const users = JSON.parse(fileContent);
 
   const email = req.body.email;
@@ -90,18 +100,24 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/menu-items", async (req, res) => {
-  const fileContent = await fs.readFile("./data/menu-items.json");
+  const fileContent = await fs.readFile(dataPath("menu-items.json"));
   const menuItems = JSON.parse(fileContent);
 
-  const newMenuItem = req.body;
+  const newMenuItem = {
+    id: Date.now(),
+    name: req.body.name,
+    description: req.body.description || "",
+    category: req.body.category,
+    price: Number(req.body.price),
+  };
   menuItems.push(newMenuItem);
 
-  await fs.writeFile("./data/menu-items.json", JSON.stringify(menuItems, null, 2));
+  await fs.writeFile(dataPath("menu-items.json"), JSON.stringify(menuItems, null, 2));
   res.status(200).json({ message: "Menu item inserted." });
 });
 
 app.post("/orders", async (req, res) => {
-  const fileContent = await fs.readFile("./data/orders.json");
+  const fileContent = await fs.readFile(dataPath("orders.json"));
   const orders = JSON.parse(fileContent);
 
   const newOrder = {
@@ -110,12 +126,12 @@ app.post("/orders", async (req, res) => {
   };
   orders.push(newOrder);
 
-  await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 2));
+  await fs.writeFile(dataPath("orders.json"), JSON.stringify(orders, null, 2));
   res.status(200).json({ message: "Order created successfully!" });
 });
 
 app.put("/orders/:id", async (req, res) => {
-  const fileContent = await fs.readFile("./data/orders.json");
+  const fileContent = await fs.readFile(dataPath("orders.json"));
   const orders = JSON.parse(fileContent);
 
   const orderId = Number(req.params.id);
@@ -129,7 +145,7 @@ app.put("/orders/:id", async (req, res) => {
 
   orders[orderIndex].status = newStatus;
 
-  await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 2));
+  await fs.writeFile(dataPath("orders.json"), JSON.stringify(orders, null, 2));
   res.status(200).json({ message: "Estado da encomenda atualizado." });
 });
 

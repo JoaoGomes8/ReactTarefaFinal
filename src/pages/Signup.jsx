@@ -26,18 +26,22 @@ export default function Signup() {
       type: data.get("role"),
     };
 
-    const response = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    });
+    try {
+      const response = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
 
-    if (!response.ok) {
-      setErrorMessage("Nao foi possivel registar o utilizador.");
-      return;
+      if (!response.ok) {
+        setErrorMessage("Nao foi possivel registar o utilizador.");
+        return;
+      }
+
+      navigate("/login");
+    } catch (error) {
+      setErrorMessage("API indisponivel. Verifique se o backend esta a correr.");
     }
-
-    navigate("/login");
   }
 
   return (

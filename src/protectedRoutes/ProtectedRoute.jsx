@@ -3,10 +3,18 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 export default function ProtectedRoute({ element, allowedRole }) {
-  const { user } = useContext(AuthContext);
+  const { user, isAuthReady } = useContext(AuthContext);
 
-  if (!user || user.type !== allowedRole) {
+  if (!isAuthReady) {
+    return null;
+  }
+
+  if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (user.type !== allowedRole) {
+    return <Navigate to="/" replace />;
   }
 
   return element;

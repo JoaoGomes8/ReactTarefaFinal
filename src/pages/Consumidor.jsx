@@ -19,7 +19,11 @@ export default function Consumidor() {
     const loadMenu = async () => {
       try {
         const items = await getMenuItems();
-        setMenuItems(items);
+        const itemsWithId = items.map((item, index) => ({
+          ...item,
+          id: item.id ?? `${item.category || "item"}-${item.name || "prato"}-${index}`,
+        }));
+        setMenuItems(itemsWithId);
         setError(null);
       } catch (err) {
         setError("Erro ao carregar menu: " + err.message);
@@ -36,6 +40,13 @@ export default function Consumidor() {
     setSelectedItems((prev) => ({
       ...prev,
       [category]: item,
+    }));
+  };
+
+  const handleRemoveSelectedItem = (category) => {
+    setSelectedItems((prev) => ({
+      ...prev,
+      [category]: null,
     }));
   };
 
@@ -76,7 +87,13 @@ export default function Consumidor() {
   };
 
   const getItemsByCategory = (category) => {
-    return menuItems.filter((item) => item.category === category);
+    return menuItems.filter((item) => {
+      if (category === "sobremesas") {
+        return item.category === "sobremesas" || item.category === "sobremesa";
+      }
+
+      return item.category === category;
+    });
   };
 
   if (loading) {
@@ -110,8 +127,16 @@ export default function Consumidor() {
             <h2 className="border-b border-[var(--border)] pb-2 font-serif text-2xl font-bold text-[var(--heading)]">{title}</h2>
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {getItemsByCategory(apiCategory).length > 0 ? (
-                getItemsByCategory(apiCategory).map((item) => (
-                  <div key={item.id} className="rounded-[1.4rem] border border-[var(--border)] bg-[var(--surface-strong)] p-4 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]">
+                getItemsByCategory(apiCategory).map((item) => {
+                  return (
+                    <div
+                    key={item.id}
+                    className={`rounded-[1.4rem] border bg-[var(--surface-strong)] p-4 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] ${
+                      selectedItems[stateKey]?.id === item.id
+                        ? "border-[var(--primary)] ring-2 ring-[rgba(159,79,47,0.2)]"
+                        : "border-[var(--border)]"
+                    }`}
+                  >
                     <input
                       type="radio"
                       name={stateKey}
@@ -127,7 +152,8 @@ export default function Consumidor() {
                       <span className="text-lg font-bold text-[var(--primary)]">€{item.price}</span>
                     </label>
                   </div>
-                ))
+                  );
+                })
               ) : (
                 <p className="text-[var(--text-soft)]">Sem opções disponíveis</p>
               )}
@@ -138,9 +164,53 @@ export default function Consumidor() {
         <section className="grid gap-3 rounded-[1.5rem] border border-[var(--border)] bg-[var(--surface)] p-5">
           <h2 className="font-serif text-2xl font-bold text-[var(--heading)]">Resumo da Encomenda</h2>
           <div className="grid gap-2">
-            {selectedItems.entrada && <div className="flex items-center justify-between rounded-2xl bg-[var(--surface-strong)] px-4 py-3"><span>Entrada: {selectedItems.entrada.name}</span><span className="font-semibold text-[var(--primary)]">€{selectedItems.entrada.price}</span></div>}
-            {selectedItems.prato_principal && <div className="flex items-center justify-between rounded-2xl bg-[var(--surface-strong)] px-4 py-3"><span>Prato: {selectedItems.prato_principal.name}</span><span className="font-semibold text-[var(--primary)]">€{selectedItems.prato_principal.price}</span></div>}
-            {selectedItems.sobremesa && <div className="flex items-center justify-between rounded-2xl bg-[var(--surface-strong)] px-4 py-3"><span>Sobremesa: {selectedItems.sobremesa.name}</span><span className="font-semibold text-[var(--primary)]">€{selectedItems.sobremesa.price}</span></div>}
+            {selectedItems.entrada && (
+              <div className="flex items-center justify-between gap-2 rounded-2xl bg-[var(--surface-strong)] px-4 py-3">
+                <div className="flex flex-col">
+                  <span>Entrada: {selectedItems.entrada.name}</span>
+                  <span className="font-semibold text-[var(--primary)]">€{selectedItems.entrada.price}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSelectedItem("entrada")}
+                  className="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text-soft)] transition hover:text-[var(--danger)]"
+                >
+                  Remover
+                </button>
+              </div>
+            )}
+
+            {selectedItems.prato_principal && (
+              <div className="flex items-center justify-between gap-2 rounded-2xl bg-[var(--surface-strong)] px-4 py-3">
+                <div className="flex flex-col">
+                  <span>Prato: {selectedItems.prato_principal.name}</span>
+                  <span className="font-semibold text-[var(--primary)]">€{selectedItems.prato_principal.price}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSelectedItem("prato_principal")}
+                  className="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text-soft)] transition hover:text-[var(--danger)]"
+                >
+                  Remover
+                </button>
+              </div>
+            )}
+
+            {selectedItems.sobremesa && (
+              <div className="flex items-center justify-between gap-2 rounded-2xl bg-[var(--surface-strong)] px-4 py-3">
+                <div className="flex flex-col">
+                  <span>Sobremesa: {selectedItems.sobremesa.name}</span>
+                  <span className="font-semibold text-[var(--primary)]">€{selectedItems.sobremesa.price}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSelectedItem("sobremesa")}
+                  className="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-semibold text-[var(--text-soft)] transition hover:text-[var(--danger)]"
+                >
+                  Remover
+                </button>
+              </div>
+            )}
           </div>
           {selectedItems.entrada && selectedItems.prato_principal && selectedItems.sobremesa && (
             <div className="flex items-center justify-end border-t border-[var(--border)] pt-4 text-lg font-bold text-[var(--success)]">
