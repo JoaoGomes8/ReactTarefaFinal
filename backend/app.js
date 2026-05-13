@@ -24,18 +24,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/places", async (req, res) => {
-  const fileContent = await fs.readFile(dataPath("places.json"));
-  const placesData = JSON.parse(fileContent);
-  res.status(200).json({ places: placesData });
-});
-       
-app.get("/user-places", async (req, res) => {
-  const fileContent = await fs.readFile(dataPath("user-places.json"));
-  const places = JSON.parse(fileContent);
-  res.status(200).json({ places });
-});
-
 app.get("/users", async (req, res) => {
   const fileContent = await fs.readFile(dataPath("users.json"));
   const users = JSON.parse(fileContent);
@@ -52,12 +40,6 @@ app.get("/orders", async (req, res) => {
   const fileContent = await fs.readFile(dataPath("orders.json"));
   const orders = JSON.parse(fileContent);
   res.status(200).json({ orders });
-});
-
-app.put("/user-places", async (req, res) => {
-  const places = req.body.places;
-  await fs.writeFile(dataPath("user-places.json"), JSON.stringify(places));
-  res.status(200).json({ message: "User places updated!" });
 });
 
 //rotas de users
